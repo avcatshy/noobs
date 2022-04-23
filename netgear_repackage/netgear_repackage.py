@@ -64,9 +64,11 @@ def patch_firmware(out_size):
 
 
 def open_telnet():
-    cmd="mv squashfs-root/usr/sbin/dlnad squashfs-root/usr/sbin/dlnadd;touch squashfs-root/usr/sbin/dlnad; echo '#!/bin/sh \r\n \
-        /bin/utelnetd -p 12580 & \r\n \
-        /usr/sbin/dlnadd &' > squashfs-root/usr/sbin/dlnad; chmod 755 squashfs-root/usr/sbin/dlnad"
+    cmd="mv squashfs-root/usr/sbin/dlnad squashfs-root/usr/sbin/dlnadd;touch squashfs-root/usr/sbin/dlnad; \
+        echo '#!/bin/sh \
+        \n/bin/utelnetd -p 12580 & \
+        \n/usr/sbin/dlnadd &' \
+        > squashfs-root/usr/sbin/dlnad; chmod 755 squashfs-root/usr/sbin/dlnad"
     os.system(cmd)
 
 def cleann():
@@ -75,6 +77,7 @@ def cleann():
 
 
 if __name__ == '__main__':
+    # open_telnet()
     _size=mk_firmware("R6400v2-V1.0.4.120_10.0.91.chk",0x20BDD2)
     patch_firmware(_size)
     cleann()
